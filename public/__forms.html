@@ -7,10 +7,10 @@
 </head>
 <body>
     <!-- This form is for Netlify's build-bot to detect the form fields -->
-    <form name="monkey-guy-estimate" data-netlify="true" method="POST" enctype="multipart/form-data" hidden>
+    <form name="monkey-guy-estimate" data-netlify="true" method="POST" action="/" hidden>
         <input type="hidden" name="form-name" value="monkey-guy-estimate" />
-        <input type="text" name="full_name" required />
-        <input type="tel" name="phone_number" required />
+        <input type="text" name="full_name" />
+        <input type="tel" name="phone_number" />
         <select name="service_type">
             <option value="tree-removal">Tree Removal</option>
             <option value="tree-trimming">Tree Trimming</option>
@@ -22,7 +22,6 @@
             <option value="planting">Planting</option>
             <option value="sod-installation">Sod Installation</option>
         </select>
-        <input type="file" name="tree_photo" />
         <textarea name="message"></textarea>
     </form>
 </body>

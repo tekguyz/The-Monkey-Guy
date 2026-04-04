@@ -32,11 +32,15 @@ export function ContactForm() {
 
     const formData = new FormData(e.currentTarget);
     const searchParams = new URLSearchParams();
-    formData.forEach((value, key) => {
-      searchParams.append(key, value as any);
-    });
-    // Force the form-name if it was missed
+    
+    // Netlify requirement: form-name must be the first parameter
     searchParams.set("form-name", "monkey-guy-estimate");
+    
+    formData.forEach((value, key) => {
+      if (key !== "form-name" && typeof value === 'string') {
+        searchParams.append(key, value);
+      }
+    });
 
     try {
       const response = await fetch("/", {
