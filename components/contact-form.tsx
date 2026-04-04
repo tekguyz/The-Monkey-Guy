@@ -40,7 +40,7 @@ export function ContactForm() {
     console.log("Submitting form to Netlify:", Object.fromEntries(formData.entries()));
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/forms.html", {
         method: "POST",
         body: formData,
       });
