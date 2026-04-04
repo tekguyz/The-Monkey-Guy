@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest-deep: oklch(35% 0.06 140);
+  --color-safety-vivid: oklch(85% 0.18 95);
+  --color-bark-slate: oklch(25% 0.02 100);
+  
+  --color-background: var(--color-bark-slate);
+  --color-foreground: oklch(98% 0.01 100);
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+  
+  body {
+    @apply bg-bark-slate text-white antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold uppercase tracking-tight;
+  }
+}
