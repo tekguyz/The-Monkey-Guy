@@ -31,6 +31,12 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
+    
+    // Ensure form-name is explicitly set
+    if (!formData.has("form-name")) {
+      formData.append("form-name", "monkey-guy-estimate");
+    }
+
     console.log("Submitting form to Netlify:", Object.fromEntries(formData.entries()));
 
     try {
@@ -42,7 +48,8 @@ export function ContactForm() {
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        console.error("Submission failed with status:", response.status);
+        const errorText = await response.text();
+        console.error(`Form submission failed with status: ${response.status}`, errorText);
       }
     } catch (error) {
       console.error("Submission error:", error);

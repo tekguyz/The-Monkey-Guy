@@ -68,8 +68,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
               </div>
             </div>
             
-            <div className="pt-8 border-t border-white/5 text-center text-white/20 text-[10px] uppercase font-bold tracking-[0.3em]">
-              &copy; {new Date().getFullYear()} The Monkey Guy. All rights reserved.
+            <div className="pt-8 border-t border-white/5 text-center text-white/20 text-[10px] uppercase font-bold tracking-[0.3em] flex flex-col items-center gap-4">
+              <span>&copy; {new Date().getFullYear()} The Monkey Guy. All rights reserved.</span>
+              <a href="/forms.html" className="opacity-0 pointer-events-none absolute">Form Detection</a>
             </div>
           </div>
         </footer>

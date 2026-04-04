@@ -6,8 +6,9 @@
 </head>
 <body>
   <!-- This file exists solely to help Netlify discover the form schema during build -->
-  <form name="monkey-guy-estimate" data-netlify="true" enctype="multipart/form-data" hidden>
+  <form name="monkey-guy-estimate" data-netlify="true" data-netlify-honeypot="bot-field" enctype="multipart/form-data" action="/" method="POST" hidden>
     <input type="hidden" name="form-name" value="monkey-guy-estimate" />
+    <input type="text" name="bot-field" />
     <input type="text" name="full_name" />
     <input type="tel" name="phone_number" />
     <input type="text" name="address" />
