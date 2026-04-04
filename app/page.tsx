@@ -69,17 +69,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      {/* Hidden form for Netlify Bot Detection */}
-      <form name="monkey-guy-estimate" data-netlify="true" netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="monkey-guy-estimate" />
-        <input type="text" name="full_name" />
-        <input type="tel" name="phone_number" />
-        <input type="text" name="address" />
-        <select name="service_type"></select>
-        <input type="file" name="tree_photo" />
-        <textarea name="message"></textarea>
-      </form>
     </div>
   );
 }
