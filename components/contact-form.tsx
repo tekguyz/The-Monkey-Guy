@@ -32,17 +32,28 @@ export function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const searchParams = new URLSearchParams();
+    
+    formData.forEach((value, key) => {
+      if (!(value instanceof File)) {
+        searchParams.append(key, value as string);
+      }
+    });
+
+    // Force the form-name if it was missed
+    searchParams.set("form-name", "monkey-guy-estimate");
 
     try {
       const response = await fetch("/", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: searchParams.toString(),
       });
 
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        console.error("Form submission failed");
+        console.error(`Form submission failed with status: ${response.status}`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);

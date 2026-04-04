@@ -18,6 +18,9 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: 'The Monkey Guy | Expert Tree Removal',
   description: 'Expert Tree Removal & Precision Climbing in Fort Lauderdale.',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
