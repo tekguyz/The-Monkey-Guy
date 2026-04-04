@@ -30,14 +30,21 @@ export function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData();
     
-    // Ensure form-name is explicitly set
-    if (!formData.has("form-name")) {
-      formData.append("form-name", "monkey-guy-estimate");
-    }
+    // Netlify often requires form-name to be the first field
+    formData.append("form-name", "monkey-guy-estimate");
+    
+    // Append all other fields from the form
+    const actualFormData = new FormData(form);
+    actualFormData.forEach((value, key) => {
+      if (key !== "form-name") {
+        formData.append(key, value);
+      }
+    });
 
-    console.log("Submitting form to Netlify:", Object.fromEntries(formData.entries()));
+    console.log("Submitting to Netlify:", Object.fromEntries(formData.entries()));
 
     try {
       const response = await fetch("/forms.html", {
@@ -46,6 +53,11 @@ export function ContactForm() {
       });
 
       if (response.ok) {
+        // If it's a 200, check if we actually got a Netlify success page or just the static file
+        const text = await response.text();
+        if (text.includes("Form Discovery")) {
+          console.warn("Warning: Submission might have returned the static file instead of being intercepted by Netlify.");
+        }
         setIsSuccess(true);
       } else {
         const errorText = await response.text();
@@ -85,6 +97,9 @@ export function ContactForm() {
       className="space-y-6"
     >
       <input type="hidden" name="form-name" value="monkey-guy-estimate" />
+      <div className="hidden">
+        <label>Don&apos;t fill this out if you&apos;re human: <input name="bot-field" /></label>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
