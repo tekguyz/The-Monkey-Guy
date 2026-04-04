@@ -31,6 +31,7 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
+    console.log("Submitting form to Netlify:", Object.fromEntries(formData.entries()));
 
     try {
       const response = await fetch("/", {
