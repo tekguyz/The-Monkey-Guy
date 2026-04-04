@@ -32,15 +32,12 @@ export function ContactForm() {
 
     try {
       const formData = new FormData(e.currentTarget);
-      formData.append("form-name", "monkey-guy-estimate");
-
-      const searchParams = new URLSearchParams(formData as any);
-      console.log("Payload Sent:", searchParams.toString());
+      // The hidden 'form-name' input is already in the JSX, 
+      // so it's already in the formData object.
 
       const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: searchParams.toString(),
+        body: formData, // Send the raw object
       });
 
       if (response.status === 200) {
