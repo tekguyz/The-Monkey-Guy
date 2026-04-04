@@ -42,6 +42,8 @@ export function ContactForm() {
       }
     });
 
+    console.log("Submitting form to Netlify:", Object.fromEntries(searchParams.entries()));
+
     try {
       const response = await fetch("/", {
         method: "POST",
@@ -87,11 +89,15 @@ export function ContactForm() {
       method="POST" 
       action="/"
       data-netlify="true" 
+      data-netlify-honeypot="bot-field"
       encType="multipart/form-data"
       onSubmit={handleSubmit}
       className="space-y-6"
     >
       <input type="hidden" name="form-name" value="monkey-guy-estimate" />
+      <p className="hidden">
+        <label>Don&apos;t fill this out if you&apos;re human: <input name="bot-field" /></label>
+      </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
