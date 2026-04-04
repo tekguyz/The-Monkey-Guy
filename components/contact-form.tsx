@@ -30,32 +30,23 @@ export function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    
-    // Create the URLSearchParams body
-    const body = new URLSearchParams();
-    body.append("form-name", "monkey-guy-estimate");
-    
-    formData.forEach((value, key) => {
-      if (key !== "form-name" && typeof value === 'string') {
-        body.append(key, value);
-      }
-    });
-
-    console.log("Submitting form to Netlify:", Object.fromEntries(body.entries()));
-
     try {
+      const formData = new FormData(e.currentTarget);
+      formData.append("form-name", "monkey-guy-estimate");
+
+      const searchParams = new URLSearchParams(formData as any);
+      console.log("Payload Sent:", searchParams.toString());
+
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
+        body: searchParams.toString(),
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setIsSuccess(true);
       } else {
-        const errorText = await response.text();
-        console.error(`Form submission failed with status: ${response.status}`, errorText);
+        console.error(`Form submission failed with status: ${response.status}`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -91,9 +82,6 @@ export function ContactForm() {
       className="space-y-6"
     >
       <input type="hidden" name="form-name" value="monkey-guy-estimate" />
-      <p className="hidden">
-        <label>Don&apos;t fill this out if you&apos;re human: <input name="bot-field" /></label>
-      </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
@@ -116,6 +104,16 @@ export function ContactForm() {
             placeholder="(954) 882-4836" 
           />
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-[10px] uppercase font-bold text-white/60 tracking-widest">Address</label>
+        <input 
+          type="text" 
+          name="address"
+          className="w-full bg-forest-deep border border-white/10 p-4 rounded-sm focus:border-safety-vivid outline-none transition-colors" 
+          placeholder="123 Main St, Fort Lauderdale, FL" 
+        />
       </div>
       
       <div className="space-y-2">
