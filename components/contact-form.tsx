@@ -31,30 +31,31 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    const searchParams = new URLSearchParams();
     
-    // Netlify requirement: form-name must be the first parameter
-    searchParams.set("form-name", "monkey-guy-estimate");
+    // Create the URLSearchParams body
+    const body = new URLSearchParams();
+    body.append("form-name", "monkey-guy-estimate");
     
     formData.forEach((value, key) => {
       if (key !== "form-name" && typeof value === 'string') {
-        searchParams.append(key, value);
+        body.append(key, value);
       }
     });
 
-    console.log("Submitting form to Netlify:", Object.fromEntries(searchParams.entries()));
+    console.log("Submitting form to Netlify:", Object.fromEntries(body.entries()));
 
     try {
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: searchParams.toString(),
+        body: body.toString(),
       });
 
       if (response.ok) {
         setIsSuccess(true);
       } else {
-        console.error(`Form submission failed with status: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`Form submission failed with status: ${response.status}`, errorText);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -86,11 +87,6 @@ export function ContactForm() {
   return (
     <form 
       name="monkey-guy-estimate" 
-      method="POST" 
-      action="/"
-      data-netlify="true" 
-      data-netlify-honeypot="bot-field"
-      encType="multipart/form-data"
       onSubmit={handleSubmit}
       className="space-y-6"
     >
