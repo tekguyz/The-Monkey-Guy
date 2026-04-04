@@ -30,6 +30,7 @@ export function Header() {
         
         <nav className="hidden lg:flex gap-8 font-bold text-sm uppercase tracking-wider text-white/90">
           <a href="#services" className="hover:text-safety-vivid transition-colors">Services</a>
+          <a href="#about" className="hover:text-safety-vivid transition-colors">About</a>
           <a href="#contact-form" className="hover:text-safety-vivid transition-colors">Safety</a>
           <a href="#contact-form" className="hover:text-safety-vivid transition-colors">Contact</a>
         </nav>

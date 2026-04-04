@@ -3,6 +3,7 @@ import { ServicesGrid } from '@/components/services-grid';
 import { ContactForm } from '@/components/contact-form';
 import { Hero } from '@/components/hero';
 import { DifferenceSection } from '@/components/difference-section';
+import { AboutSection } from '@/components/about-section';
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
 
       {/* Services Bento Grid Section */}
       <ServicesGrid />
+
+      {/* About Section */}
+      <AboutSection />
 
       {/* Difference Section */}
       <DifferenceSection />
