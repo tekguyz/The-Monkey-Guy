@@ -32,22 +32,11 @@ export function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const searchParams = new URLSearchParams();
-    
-    formData.forEach((value, key) => {
-      if (!(value instanceof File)) {
-        searchParams.append(key, value as string);
-      }
-    });
-
-    // Force the form-name if it was missed
-    searchParams.set("form-name", "monkey-guy-estimate");
 
     try {
       const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: searchParams.toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -86,6 +75,7 @@ export function ContactForm() {
     <form 
       name="monkey-guy-estimate" 
       method="POST" 
+      action="/"
       data-netlify="true" 
       encType="multipart/form-data"
       onSubmit={handleSubmit}
