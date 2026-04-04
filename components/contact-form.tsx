@@ -30,23 +30,21 @@ export function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const formData = new FormData(e.currentTarget);
-      // The hidden 'form-name' input is already in the JSX, 
-      // so it's already in the formData object.
+    const formData = new FormData(e.currentTarget);
 
+    try {
       const response = await fetch("/", {
         method: "POST",
-        body: formData, // Send the raw object
+        body: formData,
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         setIsSuccess(true);
       } else {
-        console.error(`Form submission failed with status: ${response.status}`);
+        console.error("Submission failed with status:", response.status);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
