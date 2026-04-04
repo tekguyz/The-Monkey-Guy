@@ -30,13 +30,19 @@ export function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(e.currentTarget);
+    const searchParams = new URLSearchParams();
+    formData.forEach((value, key) => {
+      searchParams.append(key, value as any);
+    });
+    // Force the form-name if it was missed
+    searchParams.set("form-name", "monkey-guy-estimate");
 
     try {
       const response = await fetch("/", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: searchParams.toString(),
       });
 
       if (response.ok) {
